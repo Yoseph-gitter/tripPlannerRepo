@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>Page Title</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+            <style>
+                body{
+                    margin: 20px;
+                    width: 900px;
+                    min-height: 400px;
+                }
+                label {
+                    width: 100px ;
+                    
+                }
+                .courseName, .courseDesc{
+                    width: 200px;
+                }
+                .courseDesc{
+                    min-height: 80px;
+                }
+               #add{
+                   background: #212529;
+                   min-width: 80px;;
+                   height: 45px;
+                   border-radius: 10px;
+                   margin: 5px 0px 5px 5px;
+                   color: white;
+                   font-weight: bolder;
+               }
+               .Welcome{
+                   display: inline-block;
+                   vertical-align: top;
+                   text-align: left;
+               }
+               .logOut{
+                   display: inline-block;
+                   vertical-align: top;
+                   margin: 5px 0px 0px 100px;
+                   text-decoration: underline;
+                   font-weight: bold;
+               }
+               .addJob{
+                   display: inline-block;
+                   vertical-align: top;
+                   margin: 5px 0px 0px 40% ;
+                   text-decoration: underline;
+                   font-weight: bold;
+               }
+               .links{
+                   text-decoration: underline;
+                   display: inline-block;
+                   vertical-align: top;
+               }
+               .jobs{
+                   display: inline-block;
+                   vertical-align: top;
+                   min-width:150px;
+               }
+               a{
+                   text-decoration: underline;
+                   margin: 3px;
+               }
+            </style>
+        </head>
+        
+        <body>
+            <div class="Welcome">
+                <h2>Welcome  {{ user.first_name }} , </h2>
+            </div>
+            <div class="logOut">
+                    <a href="/logout" alt="logout">Logout</a>
+            </div>
+
+           
+            <a class="addJob" href="/addJob" alt="add Jobs">Add A Job</a>
+       
+        
+            <!-- <form action="/createPlan" method="POST"> -->
+                {% csrf_token %} </br>
+        
+            <div class="tripSchedule">
+                
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Job</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in modified_jobs %}
+                      <tr>
+                        <td>{{ job.job.title }}</td>
+                        <td>{{ job.job.location }}</td>
+                        <td>
+                            <a href="/view/{{job.job.id}}" type="Show user" >View</a>
+                            <a href="/add/{{job.job.id}}" type="Show user" >add</a>
+                            
+                            {% if job.is_created == True %}
+                            <a href="/edit/{{job.job.id}}" type="Show user" >edit</a>
+                            <a href="/cancel/{{job.job.id}}" type="Show user" >cancel</a>
+                            {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="otherTrips">
+                <h4>Jobs by me</h4>
+                <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Name</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for each_job in  jobs_by_me %}
+                            <tr>
+                                <td>
+                                    <p class="jobs">{{ each_job.title }}</p>
+                                    <a class="links" href="/view/{{each_job.id}}" type="Show user" >View</a>
+                                    <a class="links" href="/done/{{each_job.id}}" type="Show user" >Done</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>    
+           
+            <!-- </form> -->
+        
+            <!-- 
+                BootStrap codes will goes here
+             -->
+             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+             
+        </body>
+        </html>
